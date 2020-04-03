@@ -5,13 +5,26 @@
 ## Seguridad Laravel con Middlewares
 
 Uso de Middleware
-Veamos en este post cómo crear e implementar un middleware. La función principal es proporcionar una fácil y conveniente capa para filtrar las solicitudes HTTP. Existen diferentes maneras de hacerlo y de hecho Laravel incluye un middleware que verifica si el usuario está autenticado.
+
+Veamos en este post cómo crear e implementar un middleware. La función principal es proporcionar una fácil y conveniente capa para filtrar las solicitudes HTTP. 
+
+Existen diferentes maneras de hacerlo y de hecho Laravel incluye un middleware que verifica si el usuario está autenticado.
 Puedes crear un middleware de registro y tener logs detallados de cada solicitud entrante, cualquier cosa que se te ocurra respecto a HTTP puedes llevarla a cabo usando esta tecnología.
+
 Middleware Personalizado
+
 $ php artisan make:middleware Subscribed
-Este se crea en app/Http/Middleware/Subscribed.php. Con él puedes verificar si el usuario está suscrito a mi plan de pago de mi sistema web. O crear un middleware que revise si el usuario que se intenta registrar es mayor de edad.
+Este se crea en app/Http/Middleware/Subscribed.php. Con él puedes verificar si el usuario está suscrito a mi plan de pago de mi sistema web. 
+
+O crear un middleware que revise si el usuario que se intenta registrar es mayor de edad.
+
 $ php artisan make:middleware VerifyAge
-En ambos casos tendremos nuestros middleware estarán creados en app\Http\Middleware\. Dentro de cada archivo debemos colocar la lógica de acceso correcto. Por ejemplo:
+En ambos casos tendremos nuestros middleware estarán creados en app\Http\Middleware\. 
+Dentro de cada archivo debemos colocar la lógica de acceso correcto. 
+
+Por ejemplo:
+
+
 <?php
 
 namespace App\Http\Middleware;
@@ -50,8 +63,12 @@ class VerifyAge
         return $next($request);
     }
 }
+
+
 Aquí dirigimos al usuario a una vista que tenga los textos apropiados para explicarle porqué no podemos seguir con el registro.
 Registro de las Clases Middleware
+
+
 <?php
 
 namespace App\Http;
@@ -76,9 +93,14 @@ class Kernel extends HttpKernel
     //...
     protected $middlewarePriority = [];
 }
+
+
 Y luego podemos usarla y aplicarla donde corresponde. Veamos en una ruta varios ejemplos:
+
 Route::get('/example', 'ExampleController@...')
     ->middleware('auth', 'subscribed', 'verify-age');
+    
+    
 Acá y en el video de la clase vimos la forma correcta de proteger a nuestras rutas o métodos en controladores, lo importante es definir qué queremos proteger o interceder y crear la lógica en un archivo aparte. Una persona con poca experiencia usaría estos if pero en las vistas, en cada método de un controlador o en cada una de las rutas. Esto funcionaria pero no es la manera correcta de trabajar.
 
 
