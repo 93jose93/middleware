@@ -26,7 +26,6 @@ Por ejemplo:
 
 
 <?php
-
 namespace App\Http\Middleware;
 
 use Closure;
@@ -45,6 +44,7 @@ class Subscribed
 }
 403: La solicitud fue legal, fue correcta, pero el servidor no la responderá porque el cliente no tiene los privilegios o permisos.
 Y respecto a la edad podemos hacer lo siguiente:
+
 <?php
 
 namespace App\Http\Middleware;
@@ -101,6 +101,8 @@ Route::get('/example', 'ExampleController@...')
     ->middleware('auth', 'subscribed', 'verify-age');
     
     
-Acá y en el video de la clase vimos la forma correcta de proteger a nuestras rutas o métodos en controladores, lo importante es definir qué queremos proteger o interceder y crear la lógica en un archivo aparte. Una persona con poca experiencia usaría estos if pero en las vistas, en cada método de un controlador o en cada una de las rutas. Esto funcionaria pero no es la manera correcta de trabajar.
+Acá y en el video de la clase vimos la forma correcta de proteger a nuestras rutas o métodos en controladores, lo importante es definir qué queremos proteger o interceder y crear la lógica en un archivo aparte. 
+
+Una persona con poca experiencia usaría estos if pero en las vistas, en cada método de un controlador o en cada una de las rutas. Esto funcionaria pero no es la manera correcta de trabajar.
 
 
